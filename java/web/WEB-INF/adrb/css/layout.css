@@ -1,0 +1,170 @@
+div#left
+{
+	position: absolute;
+	left: 16%;
+	top: 43%;
+}
+
+div#left p#title
+{
+	font-family: "Charlemagne Std";
+	font-size: 4em;
+}
+
+div#left p#desc
+{
+	font-size: 1.2em;
+	margin-top: 20px;
+}
+
+div#right
+{
+	width: 500px;
+	padding: 30px 0 40px 0;
+	position: absolute;
+	top: 25%;
+	left: 55%;
+}
+
+div#right input.words
+{
+	width: 200px;
+	height: 22px;
+	display: block;
+	margin-top: 17px;
+	margin-left: 29%;
+	border: 1px solid transparent;	
+	padding: 4px 8px;
+}
+
+div#right input.click
+{
+	display: inline-block;
+	width: 70px;
+	height: 25px;
+	margin-top: 5%;
+	margin-left: 15%;
+	border: none;
+	font-weight: bold;
+}
+
+div#right a
+{
+    display: inline-block;
+    width: 70px;
+    height: 25px;
+    margin-top: 5%;
+    margin-left: 15%;
+    border: none;
+    font-weight: bold;
+}
+
+div#right input.click[type="submit"]
+{
+	margin-left: 28.5%;
+}
+
+div#list
+{
+	width: 800px;
+	height: auto;
+	min-height: 500px;
+	margin-top: 8%;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 7%;
+	border-radius: 10px;
+	padding-bottom: 50px;
+	overflow: hidden;
+}
+
+div#list p#title
+{
+	font-size: 2em;
+	font-weight: bold;
+	text-align: center;
+	padding: 60px 30px 20px 30px;
+}
+
+div#list div
+{
+	width: 700px;
+	padding: 30px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+div#list ul#list-name
+{
+	font-size: 1.1em;
+	font-weight: bold;
+}
+
+div#list ul#list-name li
+{
+	float: left;
+}
+
+div#list ul#list-name li a
+{
+	display: block;
+	width: auto;
+	padding: 10px 25px;
+	border: 1px solid transparent;
+	margin: 6px 7px;
+	box-shadow: 5px 5px 5px #888888;
+	text-decoration: none;
+}
+
+div#list a#download
+{
+	font-size: 0.5em;
+	text-decoration: none;
+	color: black;
+}
+
+p#add a,
+p#sendEmail a
+{
+    text-decoration: none;
+    position: absolute;
+    top: 9%;
+    right: 29%;
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+p#sendEmail a
+{
+    font-size: 1em;
+    top: 12.5%;
+}
+
+textarea
+{
+    display: block;
+    width: 500px;
+    min-height: 300px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 14%;
+}
+
+input.send
+{
+    width: 80px;
+}
+
+input.send[name="send"]
+{
+    position: absolute;
+    left: 40%;
+    bottom: 20%;
+}
+
+input.send[name="reset"]
+{
+    position: absolute;
+    left: 55%;
+    bottom: 20%;
+}
