@@ -1,0 +1,77 @@
+body
+{
+	background-image: url("../img/bg.png");
+}
+
+div#left
+{
+	color: white;
+}
+
+div#right
+{
+	background-color: rgba(0, 0, 0, 0.4);
+}
+
+div#right p
+{
+	color: white;
+}
+
+div#right input.words
+{
+	background-color: rgba(255, 255, 255, 0.7);
+}
+
+div#right input.click
+{
+	background-color: rgba(255, 255, 255, 0.5);
+	color: rgba(0, 0, 0, 0.7);
+}
+
+div#right input:hover,
+div#right input:active,
+div#right input:focus
+{
+	background-color: rgba(255, 255, 255, 0.9);
+	outline: none;
+}
+
+div#left a:link,
+div#left a:visited
+{
+	color: pink;
+}
+
+div#list
+{
+	background-color: rgba(255, 255, 255, 0.77);
+}
+
+div#list ul#list-name a
+{
+	color: white;
+	background-color: pink;
+}
+
+div#list ul#list-name a:hover,
+div#list ul#list-name a:active,
+div#list ul#list-name a:focus
+{
+	background-color: #ff9f72;
+}
+p#add a,
+p#sendEmail a
+{
+    color: white;
+}
+
+textarea
+{
+    background-color: rgba(255, 255, 255, 0.7);
+}
+
+input.send
+{
+    background-color: rgba(255, 255, 255, 0.8);
+}

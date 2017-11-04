@@ -1,16 +1,16 @@
 <%--
   Created by IntelliJ IDEA.
-  User: CoderQiang
+  User: coderqiang
   Date: 2017/11/4
-  Time: 9:15
+  Time: 下午9:25
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
-  <head>
-    <title>同学录</title>
-  </head>
-  <body>
-  欢迎来到嘻哈侠通讯录!!!<a href="/index">主页</a>
-  </body>
+<head>
+    <title>出错了</title>
+</head>
+<body>
+    <p>你访问的页面出错了!</p>
+</body>
 </html>
