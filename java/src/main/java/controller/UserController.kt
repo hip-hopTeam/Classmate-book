@@ -22,4 +22,6 @@ class UserController @Autowired constructor(val userService: UserService){
         userService!!.addUser(user)
         return user
     }
+
+
 }
