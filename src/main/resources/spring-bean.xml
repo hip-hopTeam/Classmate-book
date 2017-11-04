@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <context:component-scan base-package="controller"/>
+    <context:component-scan base-package="service"/>
+
+    <aop:config>
+        <aop:pointcut expression="execution(public * service.*.*(..))"
+                      id="txPointCut" />
+        <aop:advisor advice-ref="txAdvice" pointcut-ref="txPointCut" />
+    </aop:config>
+
+    <tx:advice transaction-manager="transactionManager" id="txAdvice">
+        <tx:attributes>
+            <tx:method name="edit*" propagation="REQUIRED"/>
+            <tx:method name="load*" propagation="REQUIRED" />
+            <tx:method name="save*" propagation="REQUIRED" />
+            <tx:method name="add*" propagation="REQUIRED" />
+            <tx:method name="create*" propagation="REQUIRED" />
+            <tx:method name="insert*" propagation="REQUIRED" />
+            <tx:method name="update*" propagation="REQUIRED" />
+            <tx:method name="merge*" propagation="REQUIRED" />
+            <tx:method name="del*" propagation="REQUIRED" />
+            <tx:method name="remove*" propagation="REQUIRED" />
+            <tx:method name="put*" propagation="REQUIRED" />
+            <tx:method name="set*" propagation="REQUIRED" />
+            <tx:method name="use*" propagation="REQUIRED" />
+            <tx:method name="get*" propagation="REQUIRED" read-only="false" />
+            <tx:method name="count*" propagation="REQUIRED" read-only="false" />
+            <tx:method name="find*" propagation="REQUIRED" read-only="false" />
+            <tx:method name="list*" propagation="REQUIRED" read-only="false" />
+            <tx:method name="*" propagation="REQUIRED" />
+            <tx:method name="finish*" propagation="REQUIRED" read-only="false"></tx:method>
+            <!--<tx:method name="*" read-only="false"/>-->
+        </tx:attributes>
+    </tx:advice>
+
+    <bean id="dataSource2" class="org.apache.commons.dbcp2.BasicDataSource"
+          destroy-method="close">
+        <!-- Connection Info -->
+        <!--<property name="url" value="jdbc:mysql://rm-wz9p9o90s2797sveko.mysql.rds.aliyuncs.com:3306/zuhao666?useSSL=true" />-->
+        <!--<property name="username" value="coderqiang47" />-->
+        <!--<property name="password" value="3dsyYzbWMaSASSba4ZWWaw" />-->
+        <property name="driverClassName" value="com.mysql.jdbc.Driver" />
+        <property name="url" value="jdbc:mysql://localhost:3306/classmate?useSSL=true&amp;characterEncoding=utf-8" />
+        <property name="username" value="root" />
+        <property name="password" value="zsqqq1996424" />
+
+        <!--<property name="driverClassName" value="com.mysql.jdbc.Driver" />-->
+        <!--<property name="url" value="jdbc:mysql://localhost:3306/zuhao666?useSSL=true&amp;characterEncoding=utf-8" />-->
+        <!--<property name="username" value="root" />-->
+        <!--<property name="password" value="zsqqq1996424" />-->
+        <!--
+                <!- <property name="url" value="jdbc:mysql://rm-wz91qohzh442idseco.mysql.rds.aliyuncs.com:3306/zuhao666?useSSL=true&amp;characterEncoding=utf-8" />-->
+        <!--<property name="username" value="coderqiang47" />-->
+        <!--<property name="password" value="3dsyYzbWMaSASSba4ZWWaw==" />-->
+        <!-- Connection Pooling Info -->
+        <!-- <property name="maxActive" value="${dbcp.maxActive}" /> -->
+        <property name="maxTotal" value="30"/>
+        <property name="maxIdle" value="20" />
+        <property name="defaultAutoCommit" value="true" />
+        <property name="removeAbandonedOnBorrow" value="true"/>
+        <property name="removeAbandonedOnMaintenance" value="true"/>
+        <property name="logAbandoned" value="true"/>
+        <property name="removeAbandonedTimeout" value="120"/>
+        <!-- 连接Idle一个小时后超时 -->
+        <property name="timeBetweenEvictionRunsMillis" value="3600000" />
+        <property name="minEvictableIdleTimeMillis" value="3600000" />
+    </bean>
+
+    <bean id="sessionFactory"
+          class="org.springframework.orm.hibernate4.LocalSessionFactoryBean"
+          p:dataSource-ref="dataSource2">
+        <property name="configLocation">
+            <value>
+                classpath:hibernate.cfg.xml
+            </value>
+        </property>
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">
+                    org.hibernate.dialect.MySQL5InnoDBDialect
+                </prop>
+                <!--<prop key="hibernate.show_sql">true</prop>-->
+                <!--<prop key="hibernate.format_sql">true</prop>-->
+                <prop key="hibernate.connection.useUnicode">true </prop>
+
+                <prop key="hibernate.cache.use_query_cache">false </prop>
+                <prop key="hibernate.default_batch_fetch_size">16 </prop>
+
+                <prop key="hibernate.dbcp.maxActive">100 </prop>
+
+                <prop key="hibernate.dbcp.whenExhaustedAction">1</prop>
+
+                <prop key="hibernate.dbcp.maxWait">1200 </prop>
+                <prop key="hibernate.dbcp.maxIdle">10 </prop>
+                <prop key="hibernate.hbm2ddl.auto">update</prop>
+                <prop key="hibernate.dbcp.ps.maxActive">100 </prop>
+                <prop key="hibernate.dbcp.ps.whenExhaustedAction">1</prop>
+                <prop key="hibernate.current_session_context_class">org.springframework.orm.hibernate4.SpringSessionContext</prop>
+            </props>
+        </property>
+
+    </bean>
+
+    <bean id="transactionManager"
+          class="org.springframework.orm.hibernate4.HibernateTransactionManager"
+          p:sessionFactory-ref="sessionFactory"></bean>
+
+    <bean id="baseDao" class="dao.impl.BaseDAOImpl">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+</beans>
