@@ -1,15 +1,23 @@
 #!/usr/bin/env python
 from flask import Flask ,jsonify,g
 from flask_restful import Api, Resource, request, reqparse, marshal_with, fields
-from flask_httpauth import HTTPAuth
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 api = Api(app)
 db = SQLAlchemy(app)
-auth = HTTPAuth(app)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:acm201*@ngrok.codeself.cn:8306/classmatebook'
+
+db.create_all()
+parser = reqparse.RequestParser()
+parser.add_argument('id',type=int)
+parser.add_argument('username', type=str )
+parser.add_argument('phone', type=str )
+parser.add_argument('wechat', type=str )
+parser.add_argument('qq', type=str )
+parser.add_argument('mail', type=str)
+parser.add_argument('language', type=str )
 
 class User(db.Model):
     __tablename__ = 'users'
@@ -31,26 +39,23 @@ class User(db.Model):
         'language': fields.String
     }
 
-db.create_all()
-parse = reqparse.RequestParser()
-parse.add_argument('rate', type=int)
-
 class Register(Resource):
     def post(self):
-        username = request.form['username']
-        phone = request.form['phone']
-        wechat = request.form['wechat']
-        mail = request.form['mail']
-        qq = request.form['qq']
-        language = request.form['language']
+        args = parser.parse_args()
+        username = args['username']
+        phone = args['phone']
+        wechat = args['wechat']
+        mail = args['mail']
+        qq = args['qq']
+        language = args['language']
         # mail examination
-        exist_user = User.query.filter_by(mail=mail).first()
-        if exist_user is not None:
-            return 'User Exists', 401
-        # phone examination
-        exist_user = User.query.filter_by(phone=phone).first()
-        if exist_user is not None:
-            return 'User Exists', 401
+        # exist_user = User.query.filter_by(mail=mail).first()
+        # if exist_user is not None:
+        #     return 'User Exists', 401
+        # # phone examination
+        # exist_user = User.query.filter_by(phone=phone).first()
+        # if exist_user is not None:
+        #     return 'User Exists', 401
 
         new_user = User(username=username, phone=phone, wechat=wechat, 
                         mail=mail, qq=qq, language=language)
@@ -60,7 +65,8 @@ class Register(Resource):
 
 class Delete(Resource):
     def post(self):
-        id = request.form['id']
+        args = parser.parse_args()
+        id = args['id']
         user = User.query.filter_by(id=id).first()
         if user is None:
             return 'User not found', 401
@@ -69,26 +75,27 @@ class Delete(Resource):
 
 class Alter(Resource):
     def post(self):
-        id = request.form['id']
+        args = parser.parse_args()
+        id = args['id']
         user = User.query.filter_by(id=id).first()
         if user is None:
             return 'User not found  ', 401
-        username = request.form['username']
+        username = args['username']
         if username is not None:
             user.username = username
-        phone = request.form['phone']
+        phone = args['phone']
         if phone is not None:
             user.phone = phone
-        wechat = request.form['wechat']
+        wechat = args['wechat']
         if wechat is not None:
             user.wechat = wechat
-        qq = request.form['qq']
+        qq = args['qq']
         if qq is not None:
             user.qq = qq
-        mail = request.form['mail']
+        mail = args['mail']
         if mail is not None:
             user.mail = mail
-        language = request.form['language']
+        language = args['language']
         if language is not None:
             user.language = language
         db.session.commit()
